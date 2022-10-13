@@ -3,12 +3,17 @@ set -xe
 
 qemu-img create -f qcow2 windows.img 10G
 
+# No VNC
 novnc_server --vnc localhost:5901 &
 
-# vnc (not required)
-# Xvfb $DISPLAY -screen 0 1600x950x24 & \
-# x11vnc -display $DISPLAY -rfbport 5900 -passwd PASSWORD -forever
 
+# vnc (not required)
+# DISPLAY=:1
+# Xvfb $DISPLAY -screen 0 1600x950x24 & \
+# x11vnc -display $DISPLAY -rfbport 5900 -passwd 0000 -forever
+
+
+# Without Virt-IO (OK for Live ISO)
 # qemu-system-x86_64 \
 #     -m 2048M \
 #     -nographic \
@@ -18,19 +23,21 @@ novnc_server --vnc localhost:5901 &
 #     -drive file=windows.img,media=disk,format=raw \
 #     -drive file=windows.iso,media=cdrom
 
-qemu-system-x86_64
-    -full-screen -nographic -vnc :1 \
-    -boot order=d \
-    \
-    -enable-kvm \
+
+# Boot (for installer)
+qemu-system-x86_64 \
+    -m 2048 \
+    -nographic -vnc :1 \
     -machine q35 \
+    -drive file="windows.iso",media=cdrom \
+    -drive file="virtio-win.iso",media=cdrom \
     -usb -device usb-kbd \
     -device usb-tablet \
     -rtc base=localtime \
-    -smp sockets=1,cores=1,threads=2 -m 2048 \
+    -smp sockets=1,cores=1,threads=2 \
+        -k en-us \
         -net nic,model=virtio \
         -net user,hostfwd=tcp::4444-:4444 \
-        -drive file=hdd.img,media=disk,if=virtio \
-    -drive file=windows.iso,media=cdrom \
-    -drive file=virtio-win.iso,media=cdrom \
+        -drive file=windows.img,media=disk,if=virtio
+        #-enable-kvm \
     

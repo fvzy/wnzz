@@ -1,3 +1,4 @@
-windows.iso
-virt-io.iso
-ngrock
+./windows.iso
+./windows.img
+./virtio-win.iso
+./ngrock
