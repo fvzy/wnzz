@@ -1,0 +1,1 @@
+curl -ssN -L "$1" | grep -oE "downloadForm..+method" | grep -oE "http?s:\/\/.+\"" | sed -E 's/\"$//g' | sed -E 's/amp\;//g'

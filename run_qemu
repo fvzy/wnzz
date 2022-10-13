@@ -1,0 +1,36 @@
+#!/bin/sh
+set -xe
+
+qemu-img create -f qcow2 windows.img 10G
+
+novnc_server --vnc localhost:5901 &
+
+# vnc (not required)
+# Xvfb $DISPLAY -screen 0 1600x950x24 & \
+# x11vnc -display $DISPLAY -rfbport 5900 -passwd PASSWORD -forever
+
+# qemu-system-x86_64 \
+#     -m 2048M \
+#     -nographic \
+#     -vnc :1 \
+#     -boot order=d \
+#     \
+#     -drive file=windows.img,media=disk,format=raw \
+#     -drive file=windows.iso,media=cdrom
+
+qemu-system-x86_64
+    -full-screen -nographic -vnc :1 \
+    -boot order=d \
+    \
+    -enable-kvm \
+    -machine q35 \
+    -usb -device usb-kbd \
+    -device usb-tablet \
+    -rtc base=localtime \
+    -smp sockets=1,cores=1,threads=2 -m 2048 \
+        -net nic,model=virtio \
+        -net user,hostfwd=tcp::4444-:4444 \
+        -drive file=hdd.img,media=disk,if=virtio \
+    -drive file=windows.iso,media=cdrom \
+    -drive file=virtio-win.iso,media=cdrom \
+    
