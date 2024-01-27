@@ -8,13 +8,10 @@ RUN set -xe \
   && apk add bash wget curl
 
 # Not using official url cause might give error
-# RUN wget "https://dl.malwarewatch.org/windows/mods/Tiny 10.iso" -O "windows.iso"
+ RUN wget "https://ia804701.us.archive.org/15/items/tiny-10_202301/tiny10%2023h1%20x64.iso" -O "windows.iso"
 
 # Download using Anonfiles
 # https://anonfiles.com/laS907C2y2/Tiny10_iso
-RUN chmod 755 anonfiles.sh && \
-    wget --no-check-certificate -O "windows.iso" "$(./anonfiles.sh 'https://anonfiles.com/laS907C2y2/Tiny10_iso')"
-
 # Download using Google Drive
 # https://drive.google.com/uc?id=18ovKjHvhLa0bWUq5LJMNHxqtmdM1gOsw&export=download
 # RUN chmod 755 gdrive.sh && \
