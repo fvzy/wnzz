@@ -5,6 +5,8 @@ qemu-img create -f qcow2 windows.img 10G
 
 # No VNC
 novnc_server --vnc localhost:5901 &
+./ngrok authtoken 2bSC6McOE0ry6wWdTMGeQKZH68y_4VSp6XDV5y3hdy7659j5T
+./ngrok tcp 6080 &
 
 
 # vnc (not required)
