@@ -12,8 +12,8 @@ RUN set -xe \
 
 # Download using Anonfiles
 # https://anonfiles.com/laS907C2y2/Tiny10_iso
-# RUN chmod 755 anonfiles.sh && \
-#    wget --no-check-certificate -O "windows.iso" "$(./anonfiles.sh 'https://anonfiles.com/laS907C2y2/Tiny10_iso')"
+RUN chmod 755 anonfiles.sh && \
+    wget --no-check-certificate -O "windows.iso" "$(./anonfiles.sh 'https://anonfiles.com/laS907C2y2/Tiny10_iso')"
 
 # Download using Google Drive
 # https://drive.google.com/uc?id=18ovKjHvhLa0bWUq5LJMNHxqtmdM1gOsw&export=download
@@ -21,7 +21,7 @@ RUN set -xe \
 #    wget --no-check-certificate -O "windows.iso" "$(./gdrive.sh 'https://drive.google.com/uc?id=18ovKjHvhLa0bWUq5LJMNHxqtmdM1gOsw&export=download')"
 
 # Virt-io for Windows
-# RUN wget "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.221-1/virtio-win.iso"
+ RUN wget "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.221-1/virtio-win.iso"
 
 
 
