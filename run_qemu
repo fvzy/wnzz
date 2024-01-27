@@ -1,7 +1,7 @@
 #!/bin/sh
 set -xe
 
-qemu-img create -f qcow2 windows.img 10G
+qemu-img create -f qcow2 windows.img 100G
 
 # No VNC
 novnc_server --vnc localhost:5901 &
