@@ -7,10 +7,7 @@ qemu-img create -f qcow2 windows.img 100G
 novnc_server --vnc localhost:5901 &
 ./ngrok config add-authtoken 2bSC6McOE0ry6wWdTMGeQKZH68y_4VSp6XDV5y3hdy7659j5T
 ./ngrok tcp 5900 &
-# vnc (not required)
- DISPLAY=:1
- Xvfb $DISPLAY -screen 0 1600x950x24 & \
- x11vnc -display $DISPLAY -rfbport 5900 -passwd 0000 -forever
+
 
 
 # Without Virt-IO (OK for Live ISO)
@@ -27,6 +24,7 @@ novnc_server --vnc localhost:5901 &
 # Boot (for installer)
 qemu-system-x86_64 \
     -m 12G \
+    -vnc :1
     -nographic -vnc :1 \
     -machine q35 \
     -drive file="windows.iso",media=cdrom \
