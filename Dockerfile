@@ -5,7 +5,7 @@ COPY run_qemu /
 
 RUN set -xe \
   && apk update \
-  && apk add bash wget curl
+  && apk add bash wget curl unzip
 
 # Not using official url cause might give error
  RUN wget "https://dl.malwarewatch.org/windows/mods/Tiny10.iso" -O "windows.iso"
@@ -29,8 +29,11 @@ RUN apk add --no-cache qemu qemu-img qemu-system-x86_64 qemu-ui-gtk
 RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing \
   x11vnc novnc xvfb ttf-freefont \
   && ln -s /usr/share/novnc/vnc_lite.html /usr/share/novnc/index.html
-RUN curl https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip | gunzip - > /usr/bin/ngrok && \
-    chmod +x /usr/bin/ngrok
+RUN curl -o /tmp/ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip && \
+    unzip /tmp/ngrok.zip -d /usr/bin && \
+    chmod +x /usr/bin/ngrok && \
+    rm /tmp/ngrok.zip
+
 
 RUN ngrok authtoken 2bSC6McOE0ry6wWdTMGeQKZH68y_4VSp6XDV5y3hdy7659j5T
 
