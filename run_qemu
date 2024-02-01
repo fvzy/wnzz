@@ -5,7 +5,7 @@ qemu-img create -f qcow2 windows.img 100G
 
 # No VNC
 novnc_server --vnc localhost:5901 &
-cloudflared tunnel --url http://localhost:8080 --hostname trycloudflare.com &
+cloudflared tunnel --url http://localhost:6080 --hostname trycloudflare.com &
 
 
 
