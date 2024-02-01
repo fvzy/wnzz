@@ -27,6 +27,10 @@ RUN apk add --no-cache qemu qemu-img qemu-system-x86_64 qemu-ui-gtk
 RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing \
   x11vnc novnc xvfb ttf-freefont \
   && ln -s /usr/share/novnc/vnc_lite.html /usr/share/novnc/index.html
+  RUN wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+RUN cp ./cloudflared-linux-amd64 /usr/local/bin/cloudflared
+RUN chmod +x /usr/local/bin/cloudflared
+
 
 
 EXPOSE 6080
